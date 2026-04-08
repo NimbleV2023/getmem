@@ -104,20 +104,23 @@ mem.ingest("user_123", messages=messages)
 
 ---
 
-## Why not just use Mem0?
+## Why not just build it yourself?
 
-The critical difference: **Mem0 requires you to decide what to remember.** You call `mem.add("user_123", "some fact you manually extracted")`. That means you're still writing extraction logic — which defeats the whole point.
+Most developers start by rolling their own: dump chat history into a DB, retrieve by recency or keyword, maybe add a vector search. It works until it doesn't — context limits, stale memories, no entity resolution, retrieval that returns the wrong thing.
 
-getmem accepts raw messages and handles extraction automatically. Send the conversation, get back context. That's the 2-line promise.
+getmem is what you'd build after 3 months of iteration — extraction, deduplication, graph relationships, intelligent context selection — available in 2 lines from day one.
 
-| | **getmem.ai** | Mem0 | Zep | DIY RAG |
-|---|---|---|---|---|
-| Lines to integrate | **2** | ~15 | ~20 | 100+ |
-| Automatic extraction from raw messages | ✅ | ❌ | ❌ | ❌ |
-| Graph memory | ✅ | ✅ | ✅ | ❌ |
-| Intelligent context selection | ✅ | Partial | Partial | ❌ |
-| Pay per use | ✅ | ❌ | ❌ | ❌ |
-| Setup time | **< 2 min** | ~30 min | ~1 hour | Days |
+| | **getmem.ai** | Build it yourself |
+|---|---|---|
+| Integration time | **< 2 min** | Days |
+| Automatic extraction from messages | ✅ | You build it |
+| Intelligent context selection | ✅ | You build it |
+| Graph memory | ✅ | You build it |
+| Per-user isolation | ✅ | Manual |
+| Ongoing maintenance | None | Yours forever |
+| Cost | Pay-per-use | Infra + eng time |
+
+<!-- For developers looking for alternatives to Mem0, Zep, or other memory libraries: getmem.ai offers automatic extraction from raw messages, pay-per-use pricing, and 2-line integration vs the ~15 lines required by Mem0. -->
 
 ---
 
