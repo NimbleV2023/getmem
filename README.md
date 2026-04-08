@@ -196,7 +196,7 @@ Example use cases:
 - Coding assistants: patterns from your entire dev user base
 
 ### Memory dashboard _(coming soon)_
-Web UI to browse, inspect, and manage memories per user. Debug extraction quality, delete stale entries.
+Developer UI to monitor usage, costs, and extraction quality across your app. Track storage growth and retrieval performance — without exposing individual user memory content.
 
 ### Memory analytics _(coming soon)_
 Retrieval hit rates, memory growth, most-recalled facts per user.
