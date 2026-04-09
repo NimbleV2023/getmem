@@ -1,0 +1,99 @@
+# getmem.ai — Full Documentation
+
+## Overview
+
+getmem.ai is a persistent memory API for AI agents and LLM applications. It solves the context window problem: AI agents forget everything between sessions. getmem stores, retrieves, and intelligently selects the right memories for any query.
+
+## Problem it solves
+
+Every time a user starts a new session with an AI agent, the agent has no memory of past interactions. Developers work around this by:
+1. Dumping entire chat history into the context (breaks at scale, wastes tokens)
+2. Building custom RAG pipelines (complex, unreliable retrieval)
+3. Using Mem0 (works but complex setup, ~15 lines of code, subscription pricing)
+
+getmem solves this with 2 lines of code and pay-per-use pricing.
+
+## Install
+
+```bash
+pip install getmem-ai
+```
+```bash
+npm install getmem-ai
+```
+
+## Core API
+
+### Initialize
+
+```python
+# pip install getmem-ai
+import getmem_ai as getmem
+mem = getmem.init("gm_your_api_key")
+```
+
+### Add a memory
+
+```python
+mem.add("user_id", "text of the memory")
+# Examples:
+mem.add("user_123", "User is a senior Python developer")
+mem.add("user_123", "User prefers dark mode and concise answers")
+mem.add("user_123", "User's company is Acme Corp, they use AWS")
+```
+
+### Get relevant memories
+
+```python
+context = mem.get("user_id", query="what is the user working on?")
+# Returns a formatted string of the most relevant memories
+# Ready to inject directly into your system prompt
+```
+
+### Delete memories
+
+```python
+mem.delete("user_id")          # Delete all memories for a user
+mem.delete("user_id", id=123)  # Delete specific memory
+```
+
+### List memories
+
+```python
+memories = mem.list("user_id")
+```
+
+## Architecture
+
+- **Graph layer**: Neo4j — stores entities and relationships between memories
+- **Vector layer**: Qdrant — semantic similarity search across memories
+- **Metadata layer**: PostgreSQL — user management, billing, audit logs
+- **Context builder**: Proprietary algorithm that selects and ranks memories by relevance
+
+## Pricing
+
+Pay-per-use. No monthly minimums.
+- `mem.add()` — charged per write
+- `mem.get()` — charged per retrieval
+- `mem.list()` — free
+- `mem.delete()` — free
+
+## Supported languages
+
+- Python (primary SDK)
+- JavaScript/TypeScript
+- REST API (any language)
+
+## Comparison
+
+| | getmem.ai | Mem0 | DIY RAG |
+|---|---|---|---|
+| Lines to integrate | 2 | ~15 | 100+ |
+| Graph memory | Yes | Yes | No |
+| Intelligent context | Yes | Partial | No |
+| Pay per use | Yes | No | No |
+| Setup time | <2 min | ~30 min | Days |
+
+## Status
+
+Early access. Waitlist open at https://getmem.ai
