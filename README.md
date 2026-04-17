@@ -22,7 +22,29 @@ context = mem.get("user_123", query=user_message)
 
 Docs: [getmem.ai](https://getmem.ai) · PyPI: [getmem-ai](https://pypi.org/project/getmem-ai/)
 
-## OpenClaw integration
+## OpenClaw plugin
+
+The fastest way to add getmem.ai memory to any OpenClaw agent — no code changes needed:
+
+```bash
+# Install
+openclaw plugins install clawhub:@getmem/openclaw-getmem
+
+# Set your API key
+openclaw config set plugins.openclaw-getmem.apiKey gm_live_...
+
+# Restart
+openclaw gateway restart
+```
+
+Every user is remembered automatically across sessions and restarts.
+
+- Plugin repo: https://github.com/getmem-ai/openclaw-getmem
+- Get API key: https://platform.getmem.ai
+
+## OpenClaw — manual integration
+
+If you prefer to call the SDK directly in your own handler:
 
 ```python
 import getmem_ai as getmem, os
