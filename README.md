@@ -54,7 +54,11 @@ mem = getmem.init(os.environ["GETMEM_API_KEY"])
 async def handle_message(user_id, message, session):
     context = mem.get(user_id, query=message)["context"]
     reply = await session.llm(message, system=context)
-    mem.ingest_conversation(user_id, message, reply)
+    mem.ingest(user_id, messages=[
+    {"role": "user", "content": message},
+    {"role": "assistant", "content": reply},
+])
+# or shorthand: mem.ingest_conversation(user_id, message, reply)
     return reply
 ```
 
