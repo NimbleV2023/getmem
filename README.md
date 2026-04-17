@@ -58,7 +58,11 @@ async def handle_message(user_id, message, session):
     {"role": "user", "content": message},
     {"role": "assistant", "content": reply},
 ])
-# or shorthand: mem.ingest_conversation(user_id, message, reply)
+# or shorthand: mem.ingest(user_id, messages=[
+    {"role": "user", "content": message},
+    {"role": "assistant", "content": reply},
+])
+# Shorthand: mem.ingest_conversation(user_id, message, reply)
     return reply
 ```
 
@@ -81,5 +85,9 @@ metadata:
 import getmem_ai as getmem, os
 mem = getmem.init(os.environ["GETMEM_API_KEY"])
 context = mem.get(user_id, query=user_message)["context"]
-mem.ingest_conversation(user_id, user_message, reply)
+mem.ingest(user_id, messages=[
+    {"role": "user", "content": user_message},
+    {"role": "assistant", "content": reply},
+])
+# Shorthand: mem.ingest_conversation(user_id, user_message, reply)
 ```
